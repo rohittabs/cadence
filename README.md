@@ -1,8 +1,24 @@
-# Cadence 🎸
+<div align="center">
 
-> **Simply Practice.**
+<img src="icon-192.png" width="104" height="104" alt="Cadence">
 
-A free practice tracker for guitar and ukulele. No accounts, no subscriptions, no app store. Just one file that works on every device.
+# Cadence
+
+**A free practice tracker for guitar and ukulele students.**
+Plan a routine, log every session, and watch the hours add up.
+
+### [Open Cadence](https://rohittabs.github.io/cadence)
+
+![license](https://img.shields.io/badge/license-MIT-555555?style=flat-square)
+![price](https://img.shields.io/badge/price-free%20forever-2FBF71?style=flat-square)
+![whole app](https://img.shields.io/badge/whole%20app-1%20file-e6338e?style=flat-square)
+![account](https://img.shields.io/badge/account-not%20needed-7b3ff2?style=flat-square)
+![tracking](https://img.shields.io/badge/tracking-none-555555?style=flat-square)
+![works](https://img.shields.io/badge/works-offline-3B9EF5?style=flat-square)
+
+[Take the two minute tour](https://rohittabs.github.io/cadence/slides.html)
+
+</div>
 
 ---
 
@@ -11,8 +27,6 @@ A free practice tracker for guitar and ukulele. No accounts, no subscriptions, n
 Cadence is a web app that lives in a single HTML file. Open a link in a browser, add it to a home screen like a real app, and use it every day to track practice. All data is saved privately on that device only, nothing is ever sent anywhere.
 
 **Live link:** https://rohittabs.github.io/cadence
-
-**Two minute tour:** https://rohittabs.github.io/cadence/slides.html
 
 ---
 
@@ -139,13 +153,19 @@ New categories can be added at any time, and any unused category can be renamed,
 ## Files in this repository
 
 ```
-README.md        ← this file
-index.html       ← the entire app, one self-contained file
-slides.html      ← a two minute scrollable tour of the app
-Logo.png         ← the Cadence mark
+README.md              ← this file
+LICENSE                ← MIT
+index.html             ← the entire app, one self-contained file
+slides.html            ← a two minute scrollable tour of the app
+manifest.webmanifest   ← lets Android install it as a real app
+Logo.png               ← the Cadence mark
+icon-512.png           ← app icon and social preview
+icon-192.png           ← app icon
+favicon.png            ← browser tab icon
 ```
 
-The app itself is one file. No server, no database, no build steps.
+The app itself is one file. No server, no database, no build steps, and no external
+requests of any kind.
 
 ---
 
@@ -360,7 +380,7 @@ No. All existing data carries over untouched, including on restore from an older
 ## Technical details
 
 - Single self-contained HTML file, roughly 372 KB
-- No external dependencies, no frameworks, no build process
+- No external dependencies, no frameworks, no build process, and no requests to any third party. As of v3.0 the app loads zero external fonts, scripts, or stylesheets, so it is fully offline from the very first load and no request ever leaves the device
 - All charts are hand-drawn SVG, no charting libraries
 - The metronome uses the Web Audio API for precise timing, with no audio files
 - **Ask Cadence** is a deterministic query engine, not a language model. It scores a question against a set of intent phrases, longest match first, then answers from aggregates computed over the session log. No network, no key, no dependency
@@ -368,7 +388,7 @@ No. All existing data carries over untouched, including on restore from an older
 - Every confirmation dialog (delete, erase, remove) is built into the app itself rather than relying on the browser's native popups, so it works reliably even inside restrictive webviews and previews
 - Data stored in the browser's localStorage under the key `practiceLogV1`, unchanged since v1.0 so upgrades never lose history
 - Settings added in v3.0 are backfilled on load and on backup restore, so files saved by v1.0 and v2.0 still open correctly
-- Works as a Progressive Web App (PWA): installable on all major platforms
+- Works as a Progressive Web App (PWA): `manifest.webmanifest` and linked icons make it installable on Android and desktop Chrome, and the Apple meta tags cover Add to Home Screen on iOS
 - Compatible with Chrome, Edge, Safari, and Firefox on all platforms
 
 ---
@@ -400,4 +420,14 @@ First public release under the Cadence name. Full practice planning, extra-pract
 
 ---
 
+## License
+
+MIT. Use it, change it, share it, teach with it.
+
+---
+
+<div align="center">
+
 *Simply Practice.*
+
+</div>
