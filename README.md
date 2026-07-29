@@ -12,6 +12,56 @@ Cadence is a web app that lives in a single HTML file. Open a link in a browser,
 
 **Live link:** https://rohittabs.github.io/cadence
 
+**Two minute tour:** https://rohittabs.github.io/cadence/slides.html
+
+---
+
+## New in v3.0
+
+Two additions, both built around the same idea: the app should tell the truth about your practice, and it should notice when you stop.
+
+### The comeback card
+
+Miss a day and the Today tab changes. A card appears above everything else showing how long it has been since the last session, what that gap costs, and one button to start a short session right now.
+
+It escalates with the size of the gap:
+
+| Gap | What the card does |
+|---|---|
+| Practised today | Nothing. The card does not appear |
+| 1 day | Points out the miss, and notes the streak is still saveable today |
+| 2 to 3 days | Names the gap, and compares it to your best run |
+| 4 to 10 days | Warns that calluses and muscle memory start slipping here |
+| 11 days or more | Turns into a welcome back, with advice to start small |
+
+Alongside the message it shows three numbers: current streak, best streak ever, and the percentage of the last 30 days you practised on. **That last number never resets to zero**, which matters, because a broken streak should not erase the evidence that you have been working.
+
+**Missed day reminders** in the More tab set how firmly the card speaks: Gentle, Direct, or Tough. Direct is the default.
+
+One rule the setting cannot override: **after ten days away, every tone turns into a welcome back.** Guilt does not bring anyone back to an instrument, it just makes them avoid opening the app, and a student returning after three weeks needs an easy way in rather than a telling off. The goal was never a perfect streak, it was picking the instrument up again.
+
+The card can be dismissed with **Not today**, which hides it until the next day rather than permanently. New users with no sessions logged never see it at all.
+
+### Ask Cadence
+
+A question box on the Progress tab that answers using your own practice log. Eight common questions are one tap away, and anything else can be typed.
+
+Things it can answer:
+
+- How much you practised today, this week, in the last 30 days, or all time
+- Which category you are neglecting, and which one takes most of your time
+- What you should practise next
+- Which day of the week you are most and least consistent on
+- Your current streak, your best, and your 30-day consistency rate
+- Your average session mood
+- Which song or item you have put the most time into
+- Whether you are up or down against last week
+- Whether you are on track for your weekly goal
+
+**Everything is worked out on the device.** There is no AI service, no API key, no account, and no network request. It reads the same log the charts read, and it keeps working with the plane mode on.
+
+It is also honest about its limits. Ask it how to play a Bm chord and it will say it cannot help with that, and point you at your teacher, because a practice log genuinely does not contain that answer and guessing would be worse than admitting it.
+
 ---
 
 ## What the app can do
@@ -20,6 +70,8 @@ Cadence is a web app that lives in a single HTML file. Open a link in a browser,
 |---|---|
 | **Practice plan** | Build a routine with named items, categories, target minutes, and chosen days. Starts empty on purpose, so the plan is built first, then practiced |
 | **Today view** | See only what is planned for today, with a progress bar and streak counter |
+| **Comeback card** | Appears on the Today tab after a missed day, escalating with the size of the gap, with a tone setting and a hard rule that long gaps always get a welcome rather than a scolding |
+| **Ask Cadence** | A question box on the Progress tab that answers questions about your own practice log, entirely on the device |
 | **Log a session** | Tapping the tick opens a quick sheet (target prefilled, editable) with a mood picker and an optional note, then saves it. Tapping an already-logged green tick undoes it instantly |
 | **Timer** | Built-in stopwatch that auto-stops the moment the target time is reached, celebrates, and offers **Finish and log** or **Continue practicing**. Continuing keeps the clock running and logs the real elapsed time whenever it is finished |
 | **Metronome** | A simple BPM-only metronome (40 to 240 bpm) appears inside the practice timer. One continuous click, no accents, no beat or time-signature settings. Tap the number to type an exact tempo, or nudge it one beat at a time with the plus and minus buttons |
@@ -27,7 +79,7 @@ Cadence is a web app that lives in a single HTML file. Open a link in a browser,
 | **Repertoire (Songs)** | A dedicated tab for tracking songs. Each song has a stage (Learning, Polishing, Performance ready), a tempo goal you build up over time with a growth chart, and a checklist of sections that the player defines from scratch, nothing is assumed. A **Practice this today** button sends the song straight into today's list with its own timer and metronome |
 | **Categories** | 12 built-in color categories, including Fingerstyle. Add, rename, recolor, or delete any of them from the Plan tab. Deleting a category that a plan item still uses is blocked until that item is reassigned |
 | **Progress charts** | 30-day line chart, 8-week bar chart, category breakdown, 12-week heatmap |
-| **Streak tracking** | Daily streak with a grace-day system so one missed day does not break a long streak |
+| **Streak tracking** | Daily streak, plus a 30-day consistency percentage that survives a broken streak |
 | **Weekly goal ring** | Visual ring showing progress toward the weekly minute target |
 | **9 achievement badges** | Unlockable badges for milestones like first session, 7-day streak, 10 hours total, and more |
 | **Day-complete celebration** | Confetti and a trophy card appear once the whole day's plan and any extras are finished |
@@ -42,7 +94,7 @@ Cadence is a web app that lives in a single HTML file. Open a link in a browser,
 
 ## Repertoire, in detail
 
-The Songs tab is the biggest addition since v1.0, and it is worth explaining how it thinks.
+The Songs tab is worth explaining how it thinks.
 
 **Sections are never assumed.** A new song starts with zero sections. There is no automatic Intro, Verse, or Chorus. The player adds exactly the sections that make sense for that song, whether that is "Intro", "the solo", or "bar 32 where the stretch is". Each section can be renamed or removed at any time, and tapping one cycles it through To do, Working, and Done.
 
@@ -78,9 +130,9 @@ New categories can be added at any time, and any unused category can be renamed,
 | 10 hours | Reach 600 total minutes |
 | 50 hours | Reach 3000 total minutes |
 | Century | Log 100 sessions |
-| All-rounder | Practice across 5 different categories |
-| Goal week | Hit the weekly minute goal at least once |
-| Committed | Practice on 20 different days |
+| All-rounder | Practice 5 different categories |
+| Goal week | Hit the weekly goal in any week |
+| Committed | Practice on 30 separate days |
 
 ---
 
@@ -89,9 +141,11 @@ New categories can be added at any time, and any unused category can be renamed,
 ```
 README.md        ← this file
 index.html       ← the entire app, one self-contained file
+slides.html      ← a two minute scrollable tour of the app
+Logo.png         ← the Cadence mark
 ```
 
-That is it. The whole app is one file. No server, no database, no build steps.
+The app itself is one file. No server, no database, no build steps.
 
 ---
 
@@ -162,9 +216,15 @@ Bookmarking works in any browser: press **Ctrl + D** for a quick shortcut withou
 
 Bookmarking works too: press **Cmd + D** in either browser for a quick shortcut.
 
+### Any other device with a modern browser
+
+The link above works in any browser released in the last several years, including Chromebooks, Linux desktops, and smart displays with a browser. Installing as an app may not be available everywhere, but the app itself works normally, and bookmarking always works as a fallback.
+
 ---
 
-## First run
+## How to use the app
+
+### First time setup
 
 1. Type a name
 2. Choose an instrument: Guitar or Ukulele
@@ -184,6 +244,7 @@ The plan starts completely empty, on purpose. Build it before practicing.
 
 ### The Today tab (use this every day)
 
+- If a day was missed, a **comeback card** sits at the top showing the gap, your streak, and a button to start a short session
 - See everything planned for today with a progress bar at the top
 - Tap the **tick circle** to open a quick log sheet: minutes prefilled to the target, a mood picker, and an optional note. Save it to log. Tap an already-green tick again to undo instantly
 - Tap the **clock icon** to use the built-in timer. It stops automatically the moment the target is reached, then offers **Finish and log** or **Continue practicing**
@@ -204,6 +265,7 @@ The plan starts completely empty, on purpose. Build it before practicing.
 
 ### The Progress tab
 
+- **Ask Cadence**: tap a suggested question or type your own
 - Streak counter, weekly goal ring, 30-day chart, 8-week bar chart
 - Category breakdown showing where time goes
 - 12-week consistency heatmap
@@ -216,14 +278,32 @@ The plan starts completely empty, on purpose. Build it before practicing.
 - **Restore from backup**: brings everything back after a new device or accidental data loss
 - **Copy summary**: copies a formatted WhatsApp report with bold headings, bullet lists, and a full repertoire section, ready to paste and send
 - **Session history**: browse, edit, or delete any past session. Deleting recalculates all totals
+- **Missed day reminders**: choose Gentle, Direct, or Tough for the comeback card
 - **Profile**: edit name and instrument, or erase all data
+
+---
+
+### Missed day reminders (in the More tab)
+
+- **Gentle** softens the wording. "Yesterday was a rest day."
+- **Direct** is the default. "You missed yesterday."
+- **Tough** is blunt. "You skipped yesterday."
+
+Whichever is chosen, a gap of more than ten days always produces a welcome back instead. Changing the setting also un-hides a card that was dismissed with **Not today**.
+
+### Ask Cadence (in the Progress tab)
+
+- Tap any of the eight suggested questions, or type your own into the box and press enter
+- It answers from your practice log only, on the device
+- If it cannot answer, it says so plainly rather than guessing
 
 ---
 
 ## Data and privacy
 
 - All practice data is stored only on the device it is used on, in the browser's local storage
-- Nothing is ever sent to a server
+- Nothing is ever sent to a server. There is no analytics, no account, and no AI service
+- **Ask Cadence** performs no network requests. Every answer is calculated locally from data already on the device
 - Data is never seen by anyone else unless a summary is shared directly
 - Clearing browser data or cache will erase the app data, which is why regular backups matter
 
@@ -260,14 +340,34 @@ Yes. On any screen 760 pixels wide or larger, in either orientation, the app swi
 
 ---
 
+**Why did a card appear telling me I missed practice?**
+That is the comeback card, new in v3.0. It only appears when a day has been missed. Change how firmly it speaks under **Missed day reminders** in the More tab, or tap **Not today** to hide it until tomorrow.
+
+**The reminder feels too harsh for a young student.**
+Set **Missed day reminders** to Gentle in the More tab. Note that gaps longer than ten days always produce a friendly welcome back regardless of the setting.
+
+**Does Ask Cadence use AI, and does it cost anything?**
+No and no. It is not connected to any AI service and makes no network requests. Every answer is worked out on the device from the practice log, so it is free, private, and works offline.
+
+**Ask Cadence said it could not answer my question.**
+It only knows what is in your practice log. It can tell you how much you played, what you are neglecting, and how this week compares to last, but it cannot teach you a chord or a technique. Ask your teacher for those.
+
+**Will updating to v3.0 lose my practice history?**
+No. All existing data carries over untouched, including on restore from an older backup file.
+
+---
+
 ## Technical details
 
-- Single self-contained HTML file, roughly 354 KB
+- Single self-contained HTML file, roughly 372 KB
 - No external dependencies, no frameworks, no build process
 - All charts are hand-drawn SVG, no charting libraries
 - The metronome uses the Web Audio API for precise timing, with no audio files
+- **Ask Cadence** is a deterministic query engine, not a language model. It scores a question against a set of intent phrases, longest match first, then answers from aggregates computed over the session log. No network, no key, no dependency
+- The comeback card reads only the gap since the last logged session, so it behaves correctly across month and year boundaries, and stays silent for accounts with no sessions
 - Every confirmation dialog (delete, erase, remove) is built into the app itself rather than relying on the browser's native popups, so it works reliably even inside restrictive webviews and previews
-- Data stored in the browser's localStorage
+- Data stored in the browser's localStorage under the key `practiceLogV1`, unchanged since v1.0 so upgrades never lose history
+- Settings added in v3.0 are backfilled on load and on backup restore, so files saved by v1.0 and v2.0 still open correctly
 - Works as a Progressive Web App (PWA): installable on all major platforms
 - Compatible with Chrome, Edge, Safari, and Firefox on all platforms
 
@@ -275,8 +375,15 @@ Yes. On any screen 760 pixels wide or larger, in either orientation, the app swi
 
 ## Version history
 
-### v2.0 (current release)
-- Full visual redesign: refreshed color palette (a pink-to-purple gradient runs through the header, buttons, and progress bars), softer cards, and updated typography throughout every tab
+### v3.0, current release
+- Added the **comeback card** on the Today tab: appears after a missed day, escalates through four bands (1 day, 2 to 3, 4 to 10, 11 or more), and shows current streak, best streak, and a 30-day consistency percentage that does not reset when a streak breaks
+- Added a **Missed day reminders** setting in the More tab with Gentle, Direct, and Tough tones, and a fixed rule that any gap over ten days always produces a welcome back
+- Added **Ask Cadence** on the Progress tab: eight one-tap questions plus free text, answered entirely on the device from the practice log, with no AI service, no API key, and no network request
+- Ask Cadence declines questions it cannot answer from the log instead of guessing
+- Settings introduced in this release are backfilled on both normal load and backup restore, so older saves and older backup files still open correctly
+- Added `slides.html`, a scrollable two minute tour of the app
+
+### v2.0
 - Added the **Repertoire (Songs)** tab: track songs with a tempo growth chart, user-defined sections, notes, and a staged progress model (Learning, Polishing, Performance ready) where the stage a player chooses caps the ring so nothing is marked finished until the player says so
 - The teacher summary now includes a full repertoire report, sorted so songs needing work appear first, using WhatsApp's real bullet-list formatting
 - Added a 12th default category, Fingerstyle

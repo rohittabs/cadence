@@ -538,6 +538,60 @@ nav.tabs button.on{color:var(--accent);}
 }
 .hint{font-size:12.5px; color:var(--faint); margin-top:10px; line-height:1.5;}
 
+/* ---- Comeback card ---- */
+.comeback{
+  position:relative; overflow:hidden;
+  background:var(--bg2); border:1px solid var(--hair);
+  box-shadow:var(--card-sh); border-radius:22px;
+  padding:18px; margin:0 0 16px;
+}
+.comeback::before{
+  content:""; position:absolute; inset:-60% -25% auto -25%; height:220%;
+  background:radial-gradient(58% 58% at 18% 22%, color-mix(in srgb, var(--cbtone) 20%, transparent), transparent 70%),
+             radial-gradient(48% 48% at 88% 8%, color-mix(in srgb, var(--a2) 13%, transparent), transparent 70%);
+  pointer-events:none;
+}
+.comeback > *{position:relative;}
+.cbtop{display:flex; align-items:center; gap:8px; margin-bottom:9px;}
+.cbdot{width:8px; height:8px; border-radius:50%; background:var(--cbtone); flex:none;}
+.cbkick{font-size:11px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; color:var(--cbtone);}
+.comeback h3{font-size:19px; font-weight:700; letter-spacing:-.01em; margin:0 0 5px; color:var(--ink);}
+.comeback p{font-size:14.5px; color:var(--muted); margin:0 0 14px; line-height:1.45;}
+.cbstats{display:flex; gap:9px; margin-bottom:14px; flex-wrap:wrap;}
+.cbstat{flex:1 1 0; min-width:82px; background:var(--fill); border:1px solid var(--hair);
+  border-radius:14px; padding:10px 11px;}
+.cbstat small{display:block; font-size:11px; font-weight:600; color:var(--muted); margin-bottom:2px;}
+.cbstat b{font-size:17px; font-weight:700; letter-spacing:-.01em; color:var(--ink);}
+.cbstat b em{font-style:normal; font-size:12px; color:var(--muted); font-weight:600;}
+.cbmute{display:block; width:100%; text-align:center; color:var(--muted); font-size:13px;
+  font-weight:600; padding:9px 2px 1px;}
+.cbmute:hover{color:var(--ink);}
+
+/* ---- Coach ---- */
+.coachq{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:12px;}
+.coachq button{
+  font-size:13px; font-weight:600; color:var(--ontint); background:var(--tint);
+  border-radius:999px; padding:8px 13px; line-height:1.2;
+  transition:transform .12s ease;
+}
+.coachq button:active{transform:scale(.95);}
+.coachbar{display:flex; gap:8px; align-items:stretch;}
+.coachbar input{flex:1 1 auto; border-radius:14px; padding:11px 14px; font-size:15px; width:auto; min-width:0;}
+.coachbar button{
+  flex:none; width:48px; border-radius:14px; background:linear-gradient(120deg,var(--a1),var(--a2));
+  color:#fff; font-size:16px; font-weight:700; box-shadow:var(--glow);
+  transition:transform .12s ease;
+}
+.coachbar button:active{transform:scale(.94);}
+.coachout{
+  margin-top:12px; background:var(--fill); border:1px solid var(--hair);
+  border-radius:16px; padding:14px 15px; font-size:15px; line-height:1.5; color:var(--ink);
+}
+.coachout .cq{display:block; font-size:11px; font-weight:700; letter-spacing:.05em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:6px;}
+.coachout .cmiss{color:var(--muted);}
+.coachout .cbig{font-size:19px; font-weight:700; letter-spacing:-.01em; display:block; margin-bottom:3px;}
+
 </style>
 </head>
 <body>
@@ -659,6 +713,233 @@ function calcStreaks(dayMap, todayK){
     prev = keys[i];
   }
   return { current: cur, best: Math.max(best, cur) };
+}
+function daysApart(aKey, bKey){
+  return Math.round((parseKey(bKey) - parseKey(aKey)) / 86400000);
+}
+function spanMinutes(dayMap, fromKey, toKey){
+  var t = 0;
+  for (var k in dayMap) if (k >= fromKey && k <= toKey) t += dayMap[k];
+  return t;
+}
+function consistencyRate(dayMap, todayK, n){
+  var hit = 0, t = parseKey(todayK);
+  for (var i = 0; i < n; i++) if (dayMap[dateKey(addDays(t, -i))]) hit++;
+  return Math.round(hit / n * 100);
+}
+/* tone: 0 warm, 1 direct, 2 blunt. Returns null when there is nothing to say. */
+function comebackInfo(sessions, todayK, tone){
+  var dm = sumByDay(sessions);
+  var keys = Object.keys(dm).sort();
+  if (!keys.length) return null;                 /* brand new: never nag */
+  var last = keys[keys.length - 1];
+  var gap = daysApart(last, todayK);
+  if (gap <= 0) return null;                     /* practised today */
+  if (tone !== 0 && tone !== 2) tone = 1;
+
+  var st = calcStreaks(dm, todayK);
+  var t0 = parseKey(todayK);
+  var thisWk = spanMinutes(dm, dateKey(addDays(t0, -6)), todayK);
+  var prevWk = spanMinutes(dm, dateKey(addDays(t0, -13)), dateKey(addDays(t0, -7)));
+  var rate = consistencyRate(dm, todayK, 30);
+
+  var level, kick, head, body, cta, tint;
+  if (gap === 1){
+    level = "nudge"; tint = "var(--warn)"; kick = "Missed a day";
+    head = tone === 0 ? "Yesterday was a rest day."
+         : tone === 2 ? "You skipped yesterday."
+         : "You missed yesterday.";
+    body = st.current > 0
+      ? "Your " + st.current + "-day streak is still alive if you play today."
+      : "One session today puts you back on the board.";
+    cta = "Practise 10 minutes";
+  } else if (gap <= 3){
+    level = "soft"; tint = "var(--warn)"; kick = gap + " days off";
+    head = tone === 0 ? "It has been " + gap + " days."
+         : tone === 2 ? gap + " days. That is a pattern starting."
+         : gap + " days since your last session.";
+    body = st.best > 1
+      ? "Your best run was " + st.best + " days. This gap is not that."
+      : "Short gaps are normal. Long ones are the problem.";
+    cta = "Start a 10-minute session";
+  } else if (gap <= 10){
+    level = "hard"; tint = "var(--bad)"; kick = "Slipping";
+    head = tone === 0 ? gap + " days away from the instrument."
+         : tone === 2 ? gap + " days. You are losing what you built."
+         : "It has been " + gap + " days.";
+    body = "Calluses and muscle memory start slipping around here. Fifteen minutes today costs less than a week of rebuilding.";
+    cta = "Rebuild with 15 minutes";
+  } else {
+    /* Past ten days every tone softens. Shame here just loses the student. */
+    level = "return"; tint = "var(--a2)"; kick = "Long time";
+    head = "Welcome back.";
+    body = "Your last session was " + gap + " days ago. Do not try to make it up in one sitting. Pick one thing and play it for ten minutes.";
+    cta = "Start small";
+  }
+  return {
+    level: level, gap: gap, last: last, tint: tint, kick: kick,
+    head: head, body: body, cta: cta,
+    streak: st.current, best: st.best, rate: rate,
+    thisWk: thisWk, prevWk: prevWk,
+    trend: prevWk === 0 ? null : Math.round((thisWk - prevWk) / prevWk * 100)
+  };
+}
+/* ============================================================
+   COACH: answers questions from the log. No network, no model.
+   ============================================================ */
+var COACH_INTENTS = [
+  { id: "today",  words: ["today", "so far today"] },
+  { id: "week",   words: ["this week", "week", "7 days", "seven days", "weekly"] },
+  { id: "month",  words: ["month", "30 days", "thirty days", "monthly"] },
+  { id: "total",  words: ["total", "all time", "alltime", "overall", "lifetime", "how many hours", "how much have i"] },
+  { id: "weak",   words: ["weak", "weakest", "neglect", "neglecting", "ignoring", "least", "worst", "avoiding", "need work", "behind on", "falling behind"] },
+  { id: "strong", words: ["most", "best", "favourite", "favorite", "top", "strongest", "practise the most", "practice the most"] },
+  { id: "when",   words: ["what day", "which day", "best day", "when do i", "most consistent", "day am i", "day of the week"] },
+  { id: "mood",   words: ["mood", "feel", "feeling", "enjoy", "enjoying", "fun"] },
+  { id: "streak", words: ["streak", "in a row", "consecutive", "how many days straight"] },
+  { id: "song",   words: ["song", "songs", "repertoire", "piece", "tune", "which song", "what song"] },
+  { id: "trend",  words: ["improving", "getting better", "trend", "progress", "compare", "vs last", "better than"] },
+  { id: "advice", words: ["what should i practice", "what should i practise", "what next", "what now", "suggest", "recommend", "plan my", "help me", "where do i start"] },
+  { id: "goal",   words: ["goal", "target", "on track"] }
+];
+/* Longest matching phrase wins, so "which day" beats a stray "most". */
+function coachDetect(q){
+  var s = " " + String(q || "").toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").replace(/\s+$/, "") + " ";
+  var scored = [];
+  for (var i = 0; i < COACH_INTENTS.length; i++){
+    var best = 0;
+    for (var j = 0; j < COACH_INTENTS[i].words.length; j++){
+      var w = COACH_INTENTS[i].words[j];
+      if (s.indexOf(" " + w + " ") >= 0 || s.indexOf(" " + w) >= 0){
+        if (w.length > best) best = w.length;
+      }
+    }
+    if (best) scored.push({ id: COACH_INTENTS[i].id, score: best });
+  }
+  scored.sort(function (a, b){ return b.score - a.score; });
+  var out = [];
+  for (var k = 0; k < scored.length; k++) out.push(scored[k].id);
+  return out;
+}
+function coachFacts(sessions, categories, todayK){
+  var dm = sumByDay(sessions);
+  var total = 0, byCat = {}, byCat30 = {}, byName = {}, byName30 = {};
+  var moodSum = 0, moodN = 0, byDow = [0,0,0,0,0,0,0], dowDays = [0,0,0,0,0,0,0];
+  var seenDow = {};
+  var cut30 = dateKey(addDays(parseKey(todayK), -29));
+  for (var i = 0; i < sessions.length; i++){
+    var s = sessions[i];
+    total += s.min;
+    byCat[s.cat] = (byCat[s.cat] || 0) + s.min;
+    if (s.name) byName[s.name] = (byName[s.name] || 0) + s.min;
+    if (s.mood){ moodSum += s.mood; moodN++; }
+    var dw = dowMon(parseKey(s.date));
+    byDow[dw] += s.min;
+    if (!seenDow[s.date]){ seenDow[s.date] = 1; dowDays[dw]++; }
+    if (s.date >= cut30){
+      byCat30[s.cat] = (byCat30[s.cat] || 0) + s.min;
+      if (s.name) byName30[s.name] = (byName30[s.name] || 0) + s.min;
+    }
+  }
+  function topOf(o){
+    var k = null, v = -1;
+    for (var x in o) if (o[x] > v){ v = o[x]; k = x; }
+    return k === null ? null : { key: k, min: v };
+  }
+  var weak = null;
+  for (var c = 0; c < categories.length; c++){
+    var m = byCat30[categories[c].id] || 0;
+    if (weak === null || m < weak.min) weak = { key: categories[c].id, min: m };
+  }
+  var hi = 0, lo = 0;
+  for (var d = 1; d < 7; d++){
+    if (byDow[d] > byDow[hi]) hi = d;
+    if (byDow[d] < byDow[lo]) lo = d;
+  }
+  var t0 = parseKey(todayK);
+  return {
+    dm: dm, total: total, count: sessions.length,
+    byCat: byCat, byCat30: byCat30,
+    topCat: topOf(byCat), weakCat: weak,
+    topName: topOf(byName), topName30: topOf(byName30),
+    avgMood: moodN ? Math.round(moodSum / moodN * 10) / 10 : null,
+    bestDow: hi, worstDow: lo, dowMin: byDow, dowDays: dowDays,
+    today: dm[todayK] || 0,
+    week: spanMinutes(dm, dateKey(addDays(t0, -6)), todayK),
+    prevWeek: spanMinutes(dm, dateKey(addDays(t0, -13)), dateKey(addDays(t0, -7))),
+    month: spanMinutes(dm, dateKey(addDays(t0, -29)), todayK),
+    rate30: consistencyRate(dm, todayK, 30),
+    streaks: calcStreaks(dm, todayK)
+  };
+}
+/* Returns { big, text } or null when the engine honestly cannot answer. */
+function coachAnswer(q, sessions, categories, todayK, weeklyGoal){
+  if (!sessions.length) return { big: "", text: "Log a session first and I can start answering questions about your practice." };
+  var hits = coachDetect(q);
+  if (!hits.length) return null;
+  var id = hits[0];
+  if (hits.indexOf("advice") >= 0) id = "advice";
+  var f = coachFacts(sessions, categories, todayK);
+  var DOW = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+  function cname(cid){
+    for (var i = 0; i < categories.length; i++) if (categories[i].id === cid) return categories[i].name;
+    return cid;
+  }
+  var d;
+  switch (id){
+    case "today":
+      return { big: fmtMin(f.today), text: f.today ? "logged today." : "logged today. Even ten minutes counts." };
+    case "week":
+      d = f.prevWeek ? Math.round((f.week - f.prevWeek) / f.prevWeek * 100) : null;
+      return { big: fmtMin(f.week),
+        text: "in the last 7 days. Previous 7 days: " + fmtMin(f.prevWeek) + "."
+          + (d === null ? "" : " That is " + (d >= 0 ? "up " + d : "down " + Math.abs(d)) + "%.") };
+    case "month":
+      return { big: fmtMin(f.month),
+        text: "in the last 30 days, and you practised on " + f.rate30 + "% of those days." };
+    case "total":
+      return { big: fmtMin(f.total), text: "all time, across " + f.count + " session" + (f.count === 1 ? "" : "s") + "." };
+    case "weak":
+      if (!f.weakCat) return { big: "", text: "No categories set up yet." };
+      return { big: cname(f.weakCat.key),
+        text: "is your thinnest area over the last 30 days, at " + fmtMin(f.weakCat.min) + "." };
+    case "strong":
+      if (!f.topCat) return { big: "", text: "Nothing logged yet." };
+      return { big: cname(f.topCat.key), text: "is where most of your time goes, at " + fmtMin(f.topCat.min) + " all time." };
+    case "when":
+      return { big: DOW[f.bestDow],
+        text: "is your strongest day at " + fmtMin(f.dowMin[f.bestDow]) + " all time. "
+          + DOW[f.worstDow] + " is your weakest at " + fmtMin(f.dowMin[f.worstDow]) + "." };
+    case "mood":
+      if (!f.avgMood) return { big: "", text: "No moods logged yet. Tap a face when you finish a session." };
+      return { big: f.avgMood + " / 5", text: "average mood across your sessions." };
+    case "streak":
+      return { big: f.streaks.current + " " + dayWord(f.streaks.current),
+        text: "current streak. Your best is " + f.streaks.best + " " + dayWord(f.streaks.best)
+          + ", and you have practised on " + f.rate30 + "% of the last 30 days." };
+    case "song":
+      if (!f.topName) return { big: "", text: "No named items logged yet." };
+      return { big: f.topName.key, text: "has your most time on it, at " + fmtMin(f.topName.min) + "." };
+    case "trend":
+      if (!f.prevWeek) return { big: "", text: "Not enough history yet to compare one week against the last." };
+      d = Math.round((f.week - f.prevWeek) / f.prevWeek * 100);
+      return { big: (d >= 0 ? "Up " : "Down ") + Math.abs(d) + "%",
+        text: "versus last week. " + fmtMin(f.week) + " against " + fmtMin(f.prevWeek) + "." };
+    case "goal":
+      if (!weeklyGoal) return { big: "", text: "No weekly goal set." };
+      var ws = weekStart(parseKey(todayK));
+      var wk = spanMinutes(f.dm, dateKey(ws), todayK);
+      return { big: fmtMin(wk) + " of " + fmtMin(weeklyGoal),
+        text: wk >= weeklyGoal
+          ? "so far this week. Goal reached."
+          : "so far this week, with " + fmtMin(weeklyGoal - wk) + " still to go." };
+    case "advice":
+      if (!f.weakCat) return { big: "", text: "Log a few sessions and I can point you somewhere." };
+      return { big: cname(f.weakCat.key),
+        text: "is your thinnest area over 30 days at " + fmtMin(f.weakCat.min)
+          + ". Give it 10 minutes before your usual routine today." };
+  }
+  return null;
 }
 function lastNDayTotals(dayMap, todayK, n){
   var out = [];
@@ -825,7 +1106,7 @@ function storeSet(v){
 function freshState(){
   return {
     profile: { name: "", inst: "guitar" },
-    settings: { weeklyGoal: 150, theme: null, themeFollowSystem: false },
+    settings: { weeklyGoal: 150, theme: null, themeFollowSystem: false, coachTone: 1, cbHideOn: null },
     categories: defaultCats(),
     catArchive: {},
     items: [],
@@ -835,6 +1116,13 @@ function freshState(){
     lastCelebrated: null,
     created: todayKey()
   };
+}
+/* Keeps saves from earlier versions valid without touching their data. */
+function normaliseSettings(s){
+  if (!s.settings) s.settings = { weeklyGoal: 150, theme: null, themeFollowSystem: false };
+  if (typeof s.settings.weeklyGoal !== "number") s.settings.weeklyGoal = 150;
+  if (s.settings.coachTone !== 0 && s.settings.coachTone !== 2) s.settings.coachTone = 1;
+  if (typeof s.settings.cbHideOn === "undefined") s.settings.cbHideOn = null;
 }
 var state = freshState();
 function load(){
@@ -852,6 +1140,7 @@ function load(){
       s.extras = s.extras.filter(function (e) { return e.date === todayKey(); });
       if (!s.songs) s.songs = [];
       migrateSongs(s);
+      normaliseSettings(s);
       state = s;
       return !!s.profile.name;
     }
@@ -1069,6 +1358,32 @@ function loggedTodayFor(itemId){
   }
   return m;
 }
+function comebackHTML(){
+  if (state.settings.cbHideOn === todayKey()) return "";
+  var c = comebackInfo(state.sessions, todayKey(), state.settings.coachTone);
+  if (!c) return "";
+  var h = '<div class="comeback" style="--cbtone:' + c.tint + '">'
+    + '<div class="cbtop"><span class="cbdot"></span><span class="cbkick">' + esc(c.kick) + '</span></div>'
+    + '<h3>' + esc(c.head) + '</h3><p>' + esc(c.body) + '</p>'
+    + '<div class="cbstats">'
+    + '<div class="cbstat"><small>Streak</small><b>' + c.streak + ' <em>' + dayWord(c.streak) + '</em></b></div>'
+    + '<div class="cbstat"><small>Best ever</small><b>' + c.best + ' <em>' + dayWord(c.best) + '</em></b></div>'
+    + '<div class="cbstat"><small>Last 30 days</small><b>' + c.rate + '<em>%</em></b></div>'
+    + '</div>'
+    + '<button class="btn grad wide" type="button" onclick="comebackStart()">' + esc(c.cta) + '</button>'
+    + '<button class="cbmute" type="button" onclick="comebackHide()">Not today</button>'
+    + '</div>';
+  return h;
+}
+function comebackStart(){
+  var items = todaysItems();
+  if (items.length) openLog(items[0].id, items[0].min);
+  else openLog(null, 10);
+}
+function comebackHide(){
+  state.settings.cbHideOn = todayKey();
+  save(); render();
+}
 function renderToday(){
   var el = document.getElementById("view-today");
   var name = state.profile.name.split(" ")[0];
@@ -1088,6 +1403,7 @@ function renderToday(){
   var html = '<p class="greet disp">' + greet + ', ' + esc(name) + '.</p>';
   html += '<p class="datesub">' + dnames[dowMon(now)] + ', ' + now.getDate() + ' ' + mn[now.getMonth()] + '</p>';
   html += '<span class="streakchip">&#128293; ' + st.current + '-day streak</span>';
+  html += comebackHTML();
 
   var p = target ? Math.min(100, Math.round(done / target * 100)) : 0;
   html += '<div class="cols"><div class="ga">';
@@ -1728,6 +2044,60 @@ function splitMasonryDom(el){
   m.innerHTML = '';
   m.appendChild(c1); m.appendChild(c2);
 }
+var COACH_CHIPS = [
+  "What am I neglecting?",
+  "How much this week?",
+  "What should I practise next?",
+  "Am I improving?",
+  "Which day am I most consistent?",
+  "How much all time?",
+  "What do I practise the most?",
+  "How is my mood?"
+];
+var coachLast = null;   /* { q: string, big: string, text: string } */
+function coachHTML(){
+  var h = '<div class="card"><h2>Ask Cadence</h2>';
+  h += '<div class="coachq">';
+  for (var i = 0; i < COACH_CHIPS.length; i++){
+    h += '<button type="button" onclick="coachChip(' + i + ')">' + esc(COACH_CHIPS[i]) + '</button>';
+  }
+  h += '</div>';
+  h += '<div class="coachbar">'
+    + '<input id="coachIn" type="text" autocomplete="off" autocapitalize="sentences" '
+    + 'placeholder="Ask about your practice" onkeydown="if(event.key===\'Enter\'){event.preventDefault();coachAsk();}">'
+    + '<button type="button" aria-label="Ask" onclick="coachAsk()">&#8594;</button>'
+    + '</div>';
+  if (coachLast){
+    h += '<div class="coachout"><span class="cq">' + esc(coachLast.q) + '</span>';
+    if (coachLast.big) h += '<span class="cbig">' + esc(coachLast.big) + '</span>';
+    h += '<span' + (coachLast.miss ? ' class="cmiss"' : '') + '>' + esc(coachLast.text) + '</span></div>';
+  } else {
+    h += '<p class="hint">Everything is worked out on your device from your own log. Nothing is sent anywhere.</p>';
+  }
+  h += '</div>';
+  return h;
+}
+function coachRun(q){
+  q = String(q || "").trim();
+  if (!q) return;
+  var a = coachAnswer(q, state.sessions, state.categories, todayKey(), state.settings.weeklyGoal);
+  if (!a){
+    coachLast = { q: q, big: "", miss: true,
+      text: "I can only answer from your practice log, so I cannot help with that one. Try asking about your minutes, streak, categories, mood, or what to practise next. For anything about playing itself, ask Rohit in class." };
+  } else {
+    coachLast = { q: q, big: a.big, text: a.text, miss: false };
+  }
+  render();
+}
+function coachChip(i){ coachRun(COACH_CHIPS[i]); }
+function coachAsk(){
+  var el = document.getElementById("coachIn");
+  if (!el) return;
+  var v = el.value;
+  el.value = "";
+  el.blur();
+  coachRun(v);
+}
 function renderStats(){
   var el = document.getElementById("view-stats");
   var dm = sumByDay(state.sessions);
@@ -1746,6 +2116,8 @@ function renderStats(){
     + '<div class="tile"><small>Best streak</small><b>' + st.best + ' <em>' + dayWord(st.best) + '</em></b></div>'
     + '<div class="tile"><small>All time</small><b>' + fmtMin(total) + '</b></div>'
     + '</div>';
+
+  html += coachHTML();
 
   html += '<div class="card"><h2>Weekly goal</h2><div class="rosette">' + rosetteSVG(goal ? weekMin / goal : 0)
     + '<div class="info"><b class="disp">' + fmtMin(weekMin) + ' of ' + fmtMin(goal) + '</b><span>'
@@ -1819,6 +2191,13 @@ function renderMore(){
     + appCard("system", "System", sel === "system")
     + '</div>'
     + '<p class="hint">Pick how the app looks. <b>System</b> follows your phone or computer\u2019s own light or dark setting.</p></div>';
+
+  var tn = state.settings.coachTone;
+  html += '<div class="card"><h2>Missed day reminders</h2><div class="coachq">'
+    + '<button type="button" class="' + (tn === 0 ? "on" : "") + '" onclick="setCoachTone(0)">Gentle</button>'
+    + '<button type="button" class="' + (tn === 1 ? "on" : "") + '" onclick="setCoachTone(1)">Direct</button>'
+    + '<button type="button" class="' + (tn === 2 ? "on" : "") + '" onclick="setCoachTone(2)">Tough</button>'
+    + '</div><p class="hint">Miss a day and the Today tab shows a card asking you back. This sets how firmly it speaks. After ten days away it always turns into a friendly welcome, whichever setting you pick.</p></div>';
 
   html += '<div class="card"><h2>Backup and share</h2>' 
     + '<button class="btn wide" onclick="exportJSON()"><i class="bic bdl"></i>Download backup file</button>'
@@ -2438,6 +2817,12 @@ function setGoal(v){
   var n = parseInt(v, 10);
   if (!isNaN(n) && n >= 10){ state.settings.weeklyGoal = n; save(); toast("Weekly goal: " + n + "m"); }
 }
+function setCoachTone(t){
+  state.settings.coachTone = t;
+  state.settings.cbHideOn = null;
+  save(); render();
+  toast(t === 0 ? "Gentle reminders" : t === 2 ? "Tough reminders" : "Direct reminders");
+}
 
 /* ---- Category editor ---- */
 function findCat(id){
@@ -2815,6 +3200,7 @@ function importJSON(input){
       s.extras = s.extras.filter(function (e) { return e.date === todayKey(); });
       if (!s.songs) s.songs = [];
       migrateSongs(s);
+      normaliseSettings(s);
       state = s;
       if (state.settings && state.settings.theme) applyTheme(state.settings.theme);
       save(); render();
