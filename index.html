@@ -10,9 +10,9 @@
 <title>Cadence · Simply Practice</title>
 <meta name="apple-mobile-web-app-title" content="Cadence">
 <meta name="color-scheme" content="light">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   color-scheme:light;
@@ -57,7 +57,7 @@ button, .tick, .btn, .stepper button, nav.tabs button, .moods button, .dayspick 
 label, input, select, textarea, a{touch-action:manipulation;}
 html,body{background:var(--bg); min-height:100vh;}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",system-ui,sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter",system-ui,sans-serif;
   color:var(--ink); font-size:16px; line-height:1.5;
   padding-top:var(--sat);
   padding-bottom:calc(78px + var(--sab));
@@ -194,7 +194,7 @@ header.app h1 i{font-style:normal; color:var(--ontint);}
 .rosette .info b{font-size:20px; font-weight:800; display:block; letter-spacing:-.02em;}
 .rosette .info span{color:var(--muted); font-size:13.5px;}
 
-svg text{font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;}
+svg text{font-family:-apple-system,BlinkMacSystemFont,"Inter",sans-serif;}
 
 .legend{display:flex; flex-wrap:wrap; gap:8px 16px; margin-top:12px; font-size:12px; font-weight:600; color:var(--muted);}
 .legend i{display:inline-block; width:11px; height:11px; border-radius:4px; margin-right:5px; vertical-align:-1px;}
@@ -538,60 +538,17 @@ nav.tabs button.on{color:var(--accent);}
 }
 .hint{font-size:12.5px; color:var(--faint); margin-top:10px; line-height:1.5;}
 
-/* ---- Comeback card ---- */
-.comeback{
-  position:relative; overflow:hidden;
-  background:var(--bg2); border:1px solid var(--hair);
-  box-shadow:var(--card-sh); border-radius:22px;
-  padding:18px; margin:0 0 16px;
-}
-.comeback::before{
-  content:""; position:absolute; inset:-60% -25% auto -25%; height:220%;
-  background:radial-gradient(58% 58% at 18% 22%, color-mix(in srgb, var(--cbtone) 20%, transparent), transparent 70%),
-             radial-gradient(48% 48% at 88% 8%, color-mix(in srgb, var(--a2) 13%, transparent), transparent 70%);
-  pointer-events:none;
-}
-.comeback > *{position:relative;}
-.cbtop{display:flex; align-items:center; gap:8px; margin-bottom:9px;}
-.cbdot{width:8px; height:8px; border-radius:50%; background:var(--cbtone); flex:none;}
-.cbkick{font-size:11px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; color:var(--cbtone);}
-.comeback h3{font-size:19px; font-weight:700; letter-spacing:-.01em; margin:0 0 5px; color:var(--ink);}
-.comeback p{font-size:14.5px; color:var(--muted); margin:0 0 14px; line-height:1.45;}
-.cbstats{display:flex; gap:9px; margin-bottom:14px; flex-wrap:wrap;}
-.cbstat{flex:1 1 0; min-width:82px; background:var(--fill); border:1px solid var(--hair);
-  border-radius:14px; padding:10px 11px;}
-.cbstat small{display:block; font-size:11px; font-weight:600; color:var(--muted); margin-bottom:2px;}
-.cbstat b{font-size:17px; font-weight:700; letter-spacing:-.01em; color:var(--ink);}
-.cbstat b em{font-style:normal; font-size:12px; color:var(--muted); font-weight:600;}
-.cbmute{display:block; width:100%; text-align:center; color:var(--muted); font-size:13px;
-  font-weight:600; padding:9px 2px 1px;}
-.cbmute:hover{color:var(--ink);}
 
-/* ---- Coach ---- */
-.coachq{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:12px;}
-.coachq button{
-  font-size:13px; font-weight:600; color:var(--ontint); background:var(--tint);
-  border-radius:999px; padding:8px 13px; line-height:1.2;
-  transition:transform .12s ease;
-}
-.coachq button:active{transform:scale(.95);}
-.coachbar{display:flex; gap:8px; align-items:stretch;}
-.coachbar input{flex:1 1 auto; border-radius:14px; padding:11px 14px; font-size:15px; width:auto; min-width:0;}
-.coachbar button{
-  flex:none; width:48px; border-radius:14px; background:linear-gradient(120deg,var(--a1),var(--a2));
-  color:#fff; font-size:16px; font-weight:700; box-shadow:var(--glow);
-  transition:transform .12s ease;
-}
-.coachbar button:active{transform:scale(.94);}
-.coachout{
-  margin-top:12px; background:var(--fill); border:1px solid var(--hair);
-  border-radius:16px; padding:14px 15px; font-size:15px; line-height:1.5; color:var(--ink);
-}
-.coachout .cq{display:block; font-size:11px; font-weight:700; letter-spacing:.05em;
-  text-transform:uppercase; color:var(--muted); margin-bottom:6px;}
-.coachout .cmiss{color:var(--muted);}
-.coachout .cbig{font-size:19px; font-weight:700; letter-spacing:-.01em; display:block; margin-bottom:3px;}
-
+.upiamts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;}
+.upichip{font-size:14px; font-weight:600; color:var(--ontint); background:var(--tint);
+  border:1px solid transparent; border-radius:999px; padding:8px 14px; min-height:40px;
+  touch-action:manipulation; transition:transform .12s ease, filter .15s ease;}
+.upichip:active{transform:scale(.96);}
+.upichip.on{background:linear-gradient(120deg,var(--a1),var(--a2)); color:#fff; box-shadow:var(--glow);}
+.upiapps{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:6px;}
+.upiqrwrap{display:flex; justify-content:center; margin-top:14px;}
+.upiqrwrap canvas{background:#fff; padding:10px; border-radius:16px;
+  border:1px solid var(--hair); max-width:100%; height:auto; image-rendering:pixelated;}
 </style>
 </head>
 <body>
@@ -713,233 +670,6 @@ function calcStreaks(dayMap, todayK){
     prev = keys[i];
   }
   return { current: cur, best: Math.max(best, cur) };
-}
-function daysApart(aKey, bKey){
-  return Math.round((parseKey(bKey) - parseKey(aKey)) / 86400000);
-}
-function spanMinutes(dayMap, fromKey, toKey){
-  var t = 0;
-  for (var k in dayMap) if (k >= fromKey && k <= toKey) t += dayMap[k];
-  return t;
-}
-function consistencyRate(dayMap, todayK, n){
-  var hit = 0, t = parseKey(todayK);
-  for (var i = 0; i < n; i++) if (dayMap[dateKey(addDays(t, -i))]) hit++;
-  return Math.round(hit / n * 100);
-}
-/* tone: 0 warm, 1 direct, 2 blunt. Returns null when there is nothing to say. */
-function comebackInfo(sessions, todayK, tone){
-  var dm = sumByDay(sessions);
-  var keys = Object.keys(dm).sort();
-  if (!keys.length) return null;                 /* brand new: never nag */
-  var last = keys[keys.length - 1];
-  var gap = daysApart(last, todayK);
-  if (gap <= 0) return null;                     /* practised today */
-  if (tone !== 0 && tone !== 2) tone = 1;
-
-  var st = calcStreaks(dm, todayK);
-  var t0 = parseKey(todayK);
-  var thisWk = spanMinutes(dm, dateKey(addDays(t0, -6)), todayK);
-  var prevWk = spanMinutes(dm, dateKey(addDays(t0, -13)), dateKey(addDays(t0, -7)));
-  var rate = consistencyRate(dm, todayK, 30);
-
-  var level, kick, head, body, cta, tint;
-  if (gap === 1){
-    level = "nudge"; tint = "var(--warn)"; kick = "Missed a day";
-    head = tone === 0 ? "Yesterday was a rest day."
-         : tone === 2 ? "You skipped yesterday."
-         : "You missed yesterday.";
-    body = st.current > 0
-      ? "Your " + st.current + "-day streak is still alive if you play today."
-      : "One session today puts you back on the board.";
-    cta = "Practise 10 minutes";
-  } else if (gap <= 3){
-    level = "soft"; tint = "var(--warn)"; kick = gap + " days off";
-    head = tone === 0 ? "It has been " + gap + " days."
-         : tone === 2 ? gap + " days. That is a pattern starting."
-         : gap + " days since your last session.";
-    body = st.best > 1
-      ? "Your best run was " + st.best + " days. This gap is not that."
-      : "Short gaps are normal. Long ones are the problem.";
-    cta = "Start a 10-minute session";
-  } else if (gap <= 10){
-    level = "hard"; tint = "var(--bad)"; kick = "Slipping";
-    head = tone === 0 ? gap + " days away from the instrument."
-         : tone === 2 ? gap + " days. You are losing what you built."
-         : "It has been " + gap + " days.";
-    body = "Calluses and muscle memory start slipping around here. Fifteen minutes today costs less than a week of rebuilding.";
-    cta = "Rebuild with 15 minutes";
-  } else {
-    /* Past ten days every tone softens. Shame here just loses the student. */
-    level = "return"; tint = "var(--a2)"; kick = "Long time";
-    head = "Welcome back.";
-    body = "Your last session was " + gap + " days ago. Do not try to make it up in one sitting. Pick one thing and play it for ten minutes.";
-    cta = "Start small";
-  }
-  return {
-    level: level, gap: gap, last: last, tint: tint, kick: kick,
-    head: head, body: body, cta: cta,
-    streak: st.current, best: st.best, rate: rate,
-    thisWk: thisWk, prevWk: prevWk,
-    trend: prevWk === 0 ? null : Math.round((thisWk - prevWk) / prevWk * 100)
-  };
-}
-/* ============================================================
-   COACH: answers questions from the log. No network, no model.
-   ============================================================ */
-var COACH_INTENTS = [
-  { id: "today",  words: ["today", "so far today"] },
-  { id: "week",   words: ["this week", "week", "7 days", "seven days", "weekly"] },
-  { id: "month",  words: ["month", "30 days", "thirty days", "monthly"] },
-  { id: "total",  words: ["total", "all time", "alltime", "overall", "lifetime", "how many hours", "how much have i"] },
-  { id: "weak",   words: ["weak", "weakest", "neglect", "neglecting", "ignoring", "least", "worst", "avoiding", "need work", "behind on", "falling behind"] },
-  { id: "strong", words: ["most", "best", "favourite", "favorite", "top", "strongest", "practise the most", "practice the most"] },
-  { id: "when",   words: ["what day", "which day", "best day", "when do i", "most consistent", "day am i", "day of the week"] },
-  { id: "mood",   words: ["mood", "feel", "feeling", "enjoy", "enjoying", "fun"] },
-  { id: "streak", words: ["streak", "in a row", "consecutive", "how many days straight"] },
-  { id: "song",   words: ["song", "songs", "repertoire", "piece", "tune", "which song", "what song"] },
-  { id: "trend",  words: ["improving", "getting better", "trend", "progress", "compare", "vs last", "better than"] },
-  { id: "advice", words: ["what should i practice", "what should i practise", "what next", "what now", "suggest", "recommend", "plan my", "help me", "where do i start"] },
-  { id: "goal",   words: ["goal", "target", "on track"] }
-];
-/* Longest matching phrase wins, so "which day" beats a stray "most". */
-function coachDetect(q){
-  var s = " " + String(q || "").toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").replace(/\s+$/, "") + " ";
-  var scored = [];
-  for (var i = 0; i < COACH_INTENTS.length; i++){
-    var best = 0;
-    for (var j = 0; j < COACH_INTENTS[i].words.length; j++){
-      var w = COACH_INTENTS[i].words[j];
-      if (s.indexOf(" " + w + " ") >= 0 || s.indexOf(" " + w) >= 0){
-        if (w.length > best) best = w.length;
-      }
-    }
-    if (best) scored.push({ id: COACH_INTENTS[i].id, score: best });
-  }
-  scored.sort(function (a, b){ return b.score - a.score; });
-  var out = [];
-  for (var k = 0; k < scored.length; k++) out.push(scored[k].id);
-  return out;
-}
-function coachFacts(sessions, categories, todayK){
-  var dm = sumByDay(sessions);
-  var total = 0, byCat = {}, byCat30 = {}, byName = {}, byName30 = {};
-  var moodSum = 0, moodN = 0, byDow = [0,0,0,0,0,0,0], dowDays = [0,0,0,0,0,0,0];
-  var seenDow = {};
-  var cut30 = dateKey(addDays(parseKey(todayK), -29));
-  for (var i = 0; i < sessions.length; i++){
-    var s = sessions[i];
-    total += s.min;
-    byCat[s.cat] = (byCat[s.cat] || 0) + s.min;
-    if (s.name) byName[s.name] = (byName[s.name] || 0) + s.min;
-    if (s.mood){ moodSum += s.mood; moodN++; }
-    var dw = dowMon(parseKey(s.date));
-    byDow[dw] += s.min;
-    if (!seenDow[s.date]){ seenDow[s.date] = 1; dowDays[dw]++; }
-    if (s.date >= cut30){
-      byCat30[s.cat] = (byCat30[s.cat] || 0) + s.min;
-      if (s.name) byName30[s.name] = (byName30[s.name] || 0) + s.min;
-    }
-  }
-  function topOf(o){
-    var k = null, v = -1;
-    for (var x in o) if (o[x] > v){ v = o[x]; k = x; }
-    return k === null ? null : { key: k, min: v };
-  }
-  var weak = null;
-  for (var c = 0; c < categories.length; c++){
-    var m = byCat30[categories[c].id] || 0;
-    if (weak === null || m < weak.min) weak = { key: categories[c].id, min: m };
-  }
-  var hi = 0, lo = 0;
-  for (var d = 1; d < 7; d++){
-    if (byDow[d] > byDow[hi]) hi = d;
-    if (byDow[d] < byDow[lo]) lo = d;
-  }
-  var t0 = parseKey(todayK);
-  return {
-    dm: dm, total: total, count: sessions.length,
-    byCat: byCat, byCat30: byCat30,
-    topCat: topOf(byCat), weakCat: weak,
-    topName: topOf(byName), topName30: topOf(byName30),
-    avgMood: moodN ? Math.round(moodSum / moodN * 10) / 10 : null,
-    bestDow: hi, worstDow: lo, dowMin: byDow, dowDays: dowDays,
-    today: dm[todayK] || 0,
-    week: spanMinutes(dm, dateKey(addDays(t0, -6)), todayK),
-    prevWeek: spanMinutes(dm, dateKey(addDays(t0, -13)), dateKey(addDays(t0, -7))),
-    month: spanMinutes(dm, dateKey(addDays(t0, -29)), todayK),
-    rate30: consistencyRate(dm, todayK, 30),
-    streaks: calcStreaks(dm, todayK)
-  };
-}
-/* Returns { big, text } or null when the engine honestly cannot answer. */
-function coachAnswer(q, sessions, categories, todayK, weeklyGoal){
-  if (!sessions.length) return { big: "", text: "Log a session first and I can start answering questions about your practice." };
-  var hits = coachDetect(q);
-  if (!hits.length) return null;
-  var id = hits[0];
-  if (hits.indexOf("advice") >= 0) id = "advice";
-  var f = coachFacts(sessions, categories, todayK);
-  var DOW = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
-  function cname(cid){
-    for (var i = 0; i < categories.length; i++) if (categories[i].id === cid) return categories[i].name;
-    return cid;
-  }
-  var d;
-  switch (id){
-    case "today":
-      return { big: fmtMin(f.today), text: f.today ? "logged today." : "logged today. Even ten minutes counts." };
-    case "week":
-      d = f.prevWeek ? Math.round((f.week - f.prevWeek) / f.prevWeek * 100) : null;
-      return { big: fmtMin(f.week),
-        text: "in the last 7 days. Previous 7 days: " + fmtMin(f.prevWeek) + "."
-          + (d === null ? "" : " That is " + (d >= 0 ? "up " + d : "down " + Math.abs(d)) + "%.") };
-    case "month":
-      return { big: fmtMin(f.month),
-        text: "in the last 30 days, and you practised on " + f.rate30 + "% of those days." };
-    case "total":
-      return { big: fmtMin(f.total), text: "all time, across " + f.count + " session" + (f.count === 1 ? "" : "s") + "." };
-    case "weak":
-      if (!f.weakCat) return { big: "", text: "No categories set up yet." };
-      return { big: cname(f.weakCat.key),
-        text: "is your thinnest area over the last 30 days, at " + fmtMin(f.weakCat.min) + "." };
-    case "strong":
-      if (!f.topCat) return { big: "", text: "Nothing logged yet." };
-      return { big: cname(f.topCat.key), text: "is where most of your time goes, at " + fmtMin(f.topCat.min) + " all time." };
-    case "when":
-      return { big: DOW[f.bestDow],
-        text: "is your strongest day at " + fmtMin(f.dowMin[f.bestDow]) + " all time. "
-          + DOW[f.worstDow] + " is your weakest at " + fmtMin(f.dowMin[f.worstDow]) + "." };
-    case "mood":
-      if (!f.avgMood) return { big: "", text: "No moods logged yet. Tap a face when you finish a session." };
-      return { big: f.avgMood + " / 5", text: "average mood across your sessions." };
-    case "streak":
-      return { big: f.streaks.current + " " + dayWord(f.streaks.current),
-        text: "current streak. Your best is " + f.streaks.best + " " + dayWord(f.streaks.best)
-          + ", and you have practised on " + f.rate30 + "% of the last 30 days." };
-    case "song":
-      if (!f.topName) return { big: "", text: "No named items logged yet." };
-      return { big: f.topName.key, text: "has your most time on it, at " + fmtMin(f.topName.min) + "." };
-    case "trend":
-      if (!f.prevWeek) return { big: "", text: "Not enough history yet to compare one week against the last." };
-      d = Math.round((f.week - f.prevWeek) / f.prevWeek * 100);
-      return { big: (d >= 0 ? "Up " : "Down ") + Math.abs(d) + "%",
-        text: "versus last week. " + fmtMin(f.week) + " against " + fmtMin(f.prevWeek) + "." };
-    case "goal":
-      if (!weeklyGoal) return { big: "", text: "No weekly goal set." };
-      var ws = weekStart(parseKey(todayK));
-      var wk = spanMinutes(f.dm, dateKey(ws), todayK);
-      return { big: fmtMin(wk) + " of " + fmtMin(weeklyGoal),
-        text: wk >= weeklyGoal
-          ? "so far this week. Goal reached."
-          : "so far this week, with " + fmtMin(weeklyGoal - wk) + " still to go." };
-    case "advice":
-      if (!f.weakCat) return { big: "", text: "Log a few sessions and I can point you somewhere." };
-      return { big: cname(f.weakCat.key),
-        text: "is your thinnest area over 30 days at " + fmtMin(f.weakCat.min)
-          + ". Give it 10 minutes before your usual routine today." };
-  }
-  return null;
 }
 function lastNDayTotals(dayMap, todayK, n){
   var out = [];
@@ -1106,7 +836,7 @@ function storeSet(v){
 function freshState(){
   return {
     profile: { name: "", inst: "guitar" },
-    settings: { weeklyGoal: 150, theme: null, themeFollowSystem: false, coachTone: 1, cbHideOn: null },
+    settings: { weeklyGoal: 150, theme: null, themeFollowSystem: false },
     categories: defaultCats(),
     catArchive: {},
     items: [],
@@ -1116,13 +846,6 @@ function freshState(){
     lastCelebrated: null,
     created: todayKey()
   };
-}
-/* Keeps saves from earlier versions valid without touching their data. */
-function normaliseSettings(s){
-  if (!s.settings) s.settings = { weeklyGoal: 150, theme: null, themeFollowSystem: false };
-  if (typeof s.settings.weeklyGoal !== "number") s.settings.weeklyGoal = 150;
-  if (s.settings.coachTone !== 0 && s.settings.coachTone !== 2) s.settings.coachTone = 1;
-  if (typeof s.settings.cbHideOn === "undefined") s.settings.cbHideOn = null;
 }
 var state = freshState();
 function load(){
@@ -1140,7 +863,6 @@ function load(){
       s.extras = s.extras.filter(function (e) { return e.date === todayKey(); });
       if (!s.songs) s.songs = [];
       migrateSongs(s);
-      normaliseSettings(s);
       state = s;
       return !!s.profile.name;
     }
@@ -1358,32 +1080,6 @@ function loggedTodayFor(itemId){
   }
   return m;
 }
-function comebackHTML(){
-  if (state.settings.cbHideOn === todayKey()) return "";
-  var c = comebackInfo(state.sessions, todayKey(), state.settings.coachTone);
-  if (!c) return "";
-  var h = '<div class="comeback" style="--cbtone:' + c.tint + '">'
-    + '<div class="cbtop"><span class="cbdot"></span><span class="cbkick">' + esc(c.kick) + '</span></div>'
-    + '<h3>' + esc(c.head) + '</h3><p>' + esc(c.body) + '</p>'
-    + '<div class="cbstats">'
-    + '<div class="cbstat"><small>Streak</small><b>' + c.streak + ' <em>' + dayWord(c.streak) + '</em></b></div>'
-    + '<div class="cbstat"><small>Best ever</small><b>' + c.best + ' <em>' + dayWord(c.best) + '</em></b></div>'
-    + '<div class="cbstat"><small>Last 30 days</small><b>' + c.rate + '<em>%</em></b></div>'
-    + '</div>'
-    + '<button class="btn grad wide" type="button" onclick="comebackStart()">' + esc(c.cta) + '</button>'
-    + '<button class="cbmute" type="button" onclick="comebackHide()">Not today</button>'
-    + '</div>';
-  return h;
-}
-function comebackStart(){
-  var items = todaysItems();
-  if (items.length) openLog(items[0].id, items[0].min);
-  else openLog(null, 10);
-}
-function comebackHide(){
-  state.settings.cbHideOn = todayKey();
-  save(); render();
-}
 function renderToday(){
   var el = document.getElementById("view-today");
   var name = state.profile.name.split(" ")[0];
@@ -1403,7 +1099,6 @@ function renderToday(){
   var html = '<p class="greet disp">' + greet + ', ' + esc(name) + '.</p>';
   html += '<p class="datesub">' + dnames[dowMon(now)] + ', ' + now.getDate() + ' ' + mn[now.getMonth()] + '</p>';
   html += '<span class="streakchip">&#128293; ' + st.current + '-day streak</span>';
-  html += comebackHTML();
 
   var p = target ? Math.min(100, Math.round(done / target * 100)) : 0;
   html += '<div class="cols"><div class="ga">';
@@ -2044,60 +1739,6 @@ function splitMasonryDom(el){
   m.innerHTML = '';
   m.appendChild(c1); m.appendChild(c2);
 }
-var COACH_CHIPS = [
-  "What am I neglecting?",
-  "How much this week?",
-  "What should I practise next?",
-  "Am I improving?",
-  "Which day am I most consistent?",
-  "How much all time?",
-  "What do I practise the most?",
-  "How is my mood?"
-];
-var coachLast = null;   /* { q: string, big: string, text: string } */
-function coachHTML(){
-  var h = '<div class="card"><h2>Ask Cadence</h2>';
-  h += '<div class="coachq">';
-  for (var i = 0; i < COACH_CHIPS.length; i++){
-    h += '<button type="button" onclick="coachChip(' + i + ')">' + esc(COACH_CHIPS[i]) + '</button>';
-  }
-  h += '</div>';
-  h += '<div class="coachbar">'
-    + '<input id="coachIn" type="text" autocomplete="off" autocapitalize="sentences" '
-    + 'placeholder="Ask about your practice" onkeydown="if(event.key===\'Enter\'){event.preventDefault();coachAsk();}">'
-    + '<button type="button" aria-label="Ask" onclick="coachAsk()">&#8594;</button>'
-    + '</div>';
-  if (coachLast){
-    h += '<div class="coachout"><span class="cq">' + esc(coachLast.q) + '</span>';
-    if (coachLast.big) h += '<span class="cbig">' + esc(coachLast.big) + '</span>';
-    h += '<span' + (coachLast.miss ? ' class="cmiss"' : '') + '>' + esc(coachLast.text) + '</span></div>';
-  } else {
-    h += '<p class="hint">Everything is worked out on your device from your own log. Nothing is sent anywhere.</p>';
-  }
-  h += '</div>';
-  return h;
-}
-function coachRun(q){
-  q = String(q || "").trim();
-  if (!q) return;
-  var a = coachAnswer(q, state.sessions, state.categories, todayKey(), state.settings.weeklyGoal);
-  if (!a){
-    coachLast = { q: q, big: "", miss: true,
-      text: "I can only answer from your practice log, so I cannot help with that one. Try asking about your minutes, streak, categories, mood, or what to practise next. For anything about playing itself, ask Rohit in class." };
-  } else {
-    coachLast = { q: q, big: a.big, text: a.text, miss: false };
-  }
-  render();
-}
-function coachChip(i){ coachRun(COACH_CHIPS[i]); }
-function coachAsk(){
-  var el = document.getElementById("coachIn");
-  if (!el) return;
-  var v = el.value;
-  el.value = "";
-  el.blur();
-  coachRun(v);
-}
 function renderStats(){
   var el = document.getElementById("view-stats");
   var dm = sumByDay(state.sessions);
@@ -2116,8 +1757,6 @@ function renderStats(){
     + '<div class="tile"><small>Best streak</small><b>' + st.best + ' <em>' + dayWord(st.best) + '</em></b></div>'
     + '<div class="tile"><small>All time</small><b>' + fmtMin(total) + '</b></div>'
     + '</div>';
-
-  html += coachHTML();
 
   html += '<div class="card"><h2>Weekly goal</h2><div class="rosette">' + rosetteSVG(goal ? weekMin / goal : 0)
     + '<div class="info"><b class="disp">' + fmtMin(weekMin) + ' of ' + fmtMin(goal) + '</b><span>'
@@ -2176,6 +1815,426 @@ function setAppearance(mode){
   save();
   render();
 }
+/* Minimal QR encoder: byte mode, error correction level M, versions 1-15. */
+var QR = (function () {
+  "use strict";
+
+  /* total data codewords, [ecPerBlock, g1Blocks, g1Data, g2Blocks, g2Data] for level M */
+  var SPEC = [
+    null,
+    [10, 1, 16, 0, 0],
+    [16, 1, 28, 0, 0],
+    [26, 1, 44, 0, 0],
+    [18, 2, 32, 0, 0],
+    [24, 2, 43, 0, 0],
+    [16, 4, 27, 0, 0],
+    [18, 4, 31, 0, 0],
+    [22, 2, 38, 2, 39],
+    [22, 3, 36, 2, 37],
+    [26, 4, 43, 1, 44],
+    [30, 1, 50, 4, 51],
+    [22, 6, 36, 2, 37],
+    [22, 8, 37, 1, 38],
+    [24, 4, 40, 5, 41],
+    [24, 5, 41, 5, 42]
+  ];
+
+  var ALIGN = [
+    null, [], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34],
+    [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50],
+    [6, 30, 54], [6, 32, 58], [6, 34, 62], [6, 26, 46, 66], [6, 26, 48, 70]
+  ];
+
+  var EXP = new Array(512), LOG = new Array(256), x = 1, i;
+  for (i = 0; i < 255; i++) {
+    EXP[i] = x; LOG[x] = i;
+    x <<= 1;
+    if (x & 256) x ^= 285;
+  }
+  for (i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+
+  function mul(a, b) { return (a === 0 || b === 0) ? 0 : EXP[LOG[a] + LOG[b]]; }
+
+  function genPoly(n) {
+    var p = [1], j, k, np;
+    for (j = 0; j < n; j++) {
+      np = new Array(p.length + 1);
+      for (k = 0; k < np.length; k++) np[k] = 0;
+      for (k = 0; k < p.length; k++) {
+        np[k] ^= mul(p[k], EXP[j]);
+        np[k + 1] ^= p[k];
+      }
+      p = np;
+    }
+    return p;
+  }
+
+  function ecc(data, n) {
+    var g = genPoly(n), res = new Array(n), j, k, f;
+    for (j = 0; j < n; j++) res[j] = 0;
+    for (j = 0; j < data.length; j++) {
+      f = data[j] ^ res[0];
+      res.shift(); res.push(0);
+      if (f !== 0) for (k = 0; k < n; k++) res[k] ^= mul(g[n - 1 - k], f);
+    }
+    return res;
+  }
+
+  function utf8(str) {
+    var out = [], j, c;
+    for (j = 0; j < str.length; j++) {
+      c = str.charCodeAt(j);
+      if (c < 128) out.push(c);
+      else if (c < 2048) { out.push(192 | (c >> 6), 128 | (c & 63)); }
+      else if (c < 55296 || c > 57343) { out.push(224 | (c >> 12), 128 | ((c >> 6) & 63), 128 | (c & 63)); }
+      else {
+        c = 65536 + (((c & 1023) << 10) | (str.charCodeAt(++j) & 1023));
+        out.push(240 | (c >> 18), 128 | ((c >> 12) & 63), 128 | ((c >> 6) & 63), 128 | (c & 63));
+      }
+    }
+    return out;
+  }
+
+  function dataCount(v) {
+    var s = SPEC[v];
+    return s[1] * s[2] + s[3] * s[4];
+  }
+
+  function build(text) {
+    var bytes = utf8(text), v, cci, cap, s, total, bits, j, k;
+
+    for (v = 1; v <= 15; v++) {
+      cci = v < 10 ? 8 : 16;
+      cap = ((dataCount(v) * 8) - 4 - cci) >> 3;
+      if (bytes.length <= cap) break;
+    }
+    if (v > 15) throw new Error("QR: text too long");
+    cci = v < 10 ? 8 : 16;
+    s = SPEC[v];
+    total = dataCount(v);
+
+    bits = [];
+    function push(val, len) { for (var b = len - 1; b >= 0; b--) bits.push((val >> b) & 1); }
+    push(4, 4);
+    push(bytes.length, cci);
+    for (j = 0; j < bytes.length; j++) push(bytes[j], 8);
+    for (j = 0; j < 4 && bits.length < total * 8; j++) bits.push(0);
+    while (bits.length % 8) bits.push(0);
+
+    var dc = [];
+    for (j = 0; j < bits.length; j += 8) {
+      var b8 = 0;
+      for (k = 0; k < 8; k++) b8 = (b8 << 1) | bits[j + k];
+      dc.push(b8);
+    }
+    var pad = [236, 17], pi = 0;
+    while (dc.length < total) dc.push(pad[pi++ % 2]);
+
+    /* split into blocks */
+    var blocks = [], eblocks = [], p = 0, n;
+    for (j = 0; j < s[1]; j++) { blocks.push(dc.slice(p, p + s[2])); p += s[2]; }
+    for (j = 0; j < s[3]; j++) { blocks.push(dc.slice(p, p + s[4])); p += s[4]; }
+    for (j = 0; j < blocks.length; j++) eblocks.push(ecc(blocks[j], s[0]));
+
+    var out = [], maxd = Math.max(s[2], s[4]);
+    for (j = 0; j < maxd; j++)
+      for (k = 0; k < blocks.length; k++)
+        if (j < blocks[k].length) out.push(blocks[k][j]);
+    for (j = 0; j < s[0]; j++)
+      for (k = 0; k < eblocks.length; k++) out.push(eblocks[k][j]);
+
+    return { version: v, codewords: out };
+  }
+
+  function newGrid(size) {
+    var g = [], j, k;
+    for (j = 0; j < size; j++) { g[j] = []; for (k = 0; k < size; k++) g[j][k] = null; }
+    return g;
+  }
+
+  function place(g, r, c, val) { g[r][c] = val; }
+
+  function finder(g, r, c) {
+    var dr, dc2, v;
+    for (dr = -1; dr <= 7; dr++) for (dc2 = -1; dc2 <= 7; dc2++) {
+      var rr = r + dr, cc = c + dc2;
+      if (rr < 0 || cc < 0 || rr >= g.length || cc >= g.length) continue;
+      v = (dr >= 0 && dr <= 6 && (dc2 === 0 || dc2 === 6)) ||
+          (dc2 >= 0 && dc2 <= 6 && (dr === 0 || dr === 6)) ||
+          (dr >= 2 && dr <= 4 && dc2 >= 2 && dc2 <= 4);
+      place(g, rr, cc, v ? 1 : 0);
+    }
+  }
+
+  function matrix(text) {
+    var enc = build(text), v = enc.version, size = v * 4 + 17;
+    var g = newGrid(size), fn = newGrid(size), j, k, r, c;
+
+    function set(rr, cc, val) { g[rr][cc] = val; fn[rr][cc] = 1; }
+
+    finder(g, 0, 0); finder(g, 0, size - 7); finder(g, size - 7, 0);
+    for (j = -1; j <= 7; j++) for (k = -1; k <= 7; k++) {
+      var a = [[0, 0], [0, size - 7], [size - 7, 0]];
+      for (var q = 0; q < 3; q++) {
+        var rr = a[q][0] + j, cc = a[q][1] + k;
+        if (rr >= 0 && cc >= 0 && rr < size && cc < size) fn[rr][cc] = 1;
+      }
+    }
+
+    var ap = ALIGN[v];
+    for (j = 0; j < ap.length; j++) for (k = 0; k < ap.length; k++) {
+      r = ap[j]; c = ap[k];
+      if ((r <= 8 && c <= 8) || (r <= 8 && c >= size - 9) || (r >= size - 9 && c <= 8)) continue;
+      for (var dr = -2; dr <= 2; dr++) for (var dc2 = -2; dc2 <= 2; dc2++) {
+        var on = Math.max(Math.abs(dr), Math.abs(dc2)) !== 1;
+        set(r + dr, c + dc2, on ? 1 : 0);
+      }
+    }
+
+    for (j = 8; j < size - 8; j++) {
+      set(6, j, j % 2 === 0 ? 1 : 0);
+      set(j, 6, j % 2 === 0 ? 1 : 0);
+    }
+    set(size - 8, 8, 1);
+
+    /* reserve format areas */
+    for (j = 0; j <= 8; j++) { if (!fn[8][j]) set(8, j, 0); if (!fn[j][8]) set(j, 8, 0); }
+    for (j = 0; j < 8; j++) { set(8, size - 1 - j, 0); set(size - 1 - j, 8, 0); }
+
+    if (v >= 7) {
+      var rem = v;
+      for (j = 0; j < 12; j++) rem = ((rem << 1) ^ ((rem >>> 11) * 0x1F25)) & 0xFFF;
+      var vinfo = (v << 12) | rem;
+      for (j = 0; j < 18; j++) {
+        var bit = (vinfo >> j) & 1;
+        set(Math.floor(j / 3), size - 11 + (j % 3), bit);
+        set(size - 11 + (j % 3), Math.floor(j / 3), bit);
+      }
+    }
+
+    /* data placement */
+    var cw = enc.codewords, bitIdx = 0, total = cw.length * 8;
+    function nextBit() {
+      if (bitIdx >= total) return 0;
+      var b = (cw[bitIdx >> 3] >> (7 - (bitIdx & 7))) & 1;
+      bitIdx++;
+      return b;
+    }
+    var up = true;
+    for (c = size - 1; c > 0; c -= 2) {
+      if (c === 6) c--;
+      for (var i2 = 0; i2 < size; i2++) {
+        r = up ? size - 1 - i2 : i2;
+        for (var cd = 0; cd < 2; cd++) {
+          var col = c - cd;
+          if (fn[r][col]) continue;
+          g[r][col] = nextBit();
+        }
+      }
+      up = !up;
+    }
+
+    function maskFn(m, rr, cc) {
+      switch (m) {
+        case 0: return (rr + cc) % 2 === 0;
+        case 1: return rr % 2 === 0;
+        case 2: return cc % 3 === 0;
+        case 3: return (rr + cc) % 3 === 0;
+        case 4: return (Math.floor(rr / 2) + Math.floor(cc / 3)) % 2 === 0;
+        case 5: return (rr * cc) % 2 + (rr * cc) % 3 === 0;
+        case 6: return ((rr * cc) % 2 + (rr * cc) % 3) % 2 === 0;
+        default: return ((rr + cc) % 2 + (rr * cc) % 3) % 2 === 0;
+      }
+    }
+
+    function fmtBits(mask) {
+      var d = (0 << 3) | mask; /* level M = 00 */
+      var rem2 = d, t;
+      for (t = 0; t < 10; t++) rem2 = ((rem2 << 1) ^ ((rem2 >>> 9) * 0x537)) & 0x3FF;
+      return (((d << 10) | rem2) ^ 0x5412) & 0x7FFF;
+    }
+
+    function applyFormat(m, target) {
+      var f = fmtBits(m), t;
+      for (t = 0; t <= 5; t++) target[t][8] = (f >> t) & 1;
+      target[7][8] = (f >> 6) & 1;
+      target[8][8] = (f >> 7) & 1;
+      target[8][7] = (f >> 8) & 1;
+      for (t = 9; t < 15; t++) target[8][14 - t] = (f >> t) & 1;
+      for (t = 0; t < 8; t++) target[8][size - 1 - t] = (f >> t) & 1;
+      for (t = 8; t < 15; t++) target[size - 15 + t][8] = (f >> t) & 1;
+      target[size - 8][8] = 1;
+    }
+
+    function penalty(m2) {
+      var p2 = 0, rr, cc, run, last, dark = 0, n2 = size * size;
+      for (rr = 0; rr < size; rr++) {
+        run = 1; last = -1;
+        for (cc = 0; cc < size; cc++) {
+          var val = m2[rr][cc];
+          if (val === last) { run++; if (run === 5) p2 += 3; else if (run > 5) p2 += 1; }
+          else { run = 1; last = val; }
+          if (val) dark++;
+        }
+      }
+      for (cc = 0; cc < size; cc++) {
+        run = 1; last = -1;
+        for (rr = 0; rr < size; rr++) {
+          var val2 = m2[rr][cc];
+          if (val2 === last) { run++; if (run === 5) p2 += 3; else if (run > 5) p2 += 1; }
+          else { run = 1; last = val2; }
+        }
+      }
+      for (rr = 0; rr < size - 1; rr++) for (cc = 0; cc < size - 1; cc++) {
+        var a2 = m2[rr][cc];
+        if (a2 === m2[rr][cc + 1] && a2 === m2[rr + 1][cc] && a2 === m2[rr + 1][cc + 1]) p2 += 3;
+      }
+      var pat1 = [1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0], pat2 = [0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1];
+      function has(arr, off, pat) {
+        for (var t = 0; t < 11; t++) if (arr[off + t] !== pat[t]) return false;
+        return true;
+      }
+      for (rr = 0; rr < size; rr++) {
+        var rowArr = m2[rr], colArr = [];
+        for (cc = 0; cc < size; cc++) colArr.push(m2[cc][rr]);
+        for (cc = 0; cc + 11 <= size; cc++) {
+          if (has(rowArr, cc, pat1) || has(rowArr, cc, pat2)) p2 += 40;
+          if (has(colArr, cc, pat1) || has(colArr, cc, pat2)) p2 += 40;
+        }
+      }
+      p2 += Math.floor(Math.abs(dark * 100 / n2 - 50) / 5) * 10;
+      return p2;
+    }
+
+    var best = null, bestScore = Infinity;
+    for (var m = 0; m < 8; m++) {
+      var cand = [];
+      for (r = 0; r < size; r++) {
+        cand[r] = [];
+        for (c = 0; c < size; c++) cand[r][c] = fn[r][c] ? g[r][c] : (g[r][c] ^ (maskFn(m, r, c) ? 1 : 0));
+      }
+      applyFormat(m, cand);
+      var sc = penalty(cand);
+      if (sc < bestScore) { bestScore = sc; best = cand; }
+    }
+    return best;
+  }
+
+  return { matrix: matrix };
+})();
+
+
+
+/* ============================================================
+   SUPPORT / UPI DONATIONS
+   Edit the three values in UPI_CFG and nothing else.
+   ============================================================ */
+var UPI_CFG = {
+  id:   "acoustics1990@okhdfcbank",  /* your UPI ID exactly as your bank app shows it */
+  name: "Rohit Mishra",              /* name shown inside the payer's UPI app */
+  note: "Cadence support"        /* short note, keep under 40 characters */
+};
+
+var UPI_PRESETS = [50, 100, 250, 500];
+var upiAmt = null;               /* null means "let the payer choose" */
+
+var UPI_UA = (typeof navigator !== "undefined" && navigator.userAgent) || "";
+var UPI_ANDROID = /Android/i.test(UPI_UA);
+var UPI_IOS = /iPad|iPhone|iPod/.test(UPI_UA) ||
+  (typeof navigator !== "undefined" && navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+var UPI_MOBILE = UPI_ANDROID || UPI_IOS;
+
+/* Build a UPI deep link. scheme is the app prefix, "" means the generic upi:// link. */
+function upiURI(prefix, amt){
+  var q = "pa=" + encodeURIComponent(UPI_CFG.id).replace(/%40/g, "@")
+        + "&pn=" + encodeURIComponent(UPI_CFG.name)
+        + "&cu=INR";
+  if (amt != null && amt > 0) q += "&am=" + amt.toFixed(2);
+  if (UPI_CFG.note) q += "&tn=" + encodeURIComponent(UPI_CFG.note);
+  return (prefix || "upi://pay?") + q;
+}
+
+/* Draw the payment QR into the canvas with id "upiQR". Always black on white. */
+function upiDrawQR(){
+  var cv = document.getElementById("upiQR");
+  if (!cv) return;
+  var mat;
+  try { mat = QR.matrix(upiURI("", upiAmt)); }
+  catch (e) { cv.style.display = "none"; return; }
+  cv.style.display = "";
+  var n = mat.length, quiet = 4, span = n + quiet * 2;
+  var scale = Math.ceil(240 / span), px = span * scale;
+  cv.width = px; cv.height = px;
+  cv.style.width = px + "px"; cv.style.height = px + "px";
+  var g = cv.getContext("2d");
+  g.fillStyle = "#ffffff"; g.fillRect(0, 0, px, px);
+  g.fillStyle = "#000000";
+  for (var r = 0; r < n; r++)
+    for (var c = 0; c < n; c++)
+      if (mat[r][c]) g.fillRect((c + quiet) * scale, (r + quiet) * scale, scale, scale);
+  cv.setAttribute("aria-label", "UPI payment QR code for " + UPI_CFG.id);
+}
+
+function upiSetAmt(v){
+  upiAmt = (v == null || isNaN(v) || v <= 0) ? null : v;
+  renderMore();
+}
+
+function upiCustom(inp){
+  var v = parseFloat(inp.value);
+  upiSetAmt(isNaN(v) ? null : v);
+}
+
+function upiCopyId(){
+  var t = UPI_CFG.id;
+  function fallback(){
+    var ta = document.createElement("textarea");
+    ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    toast("UPI ID copied");
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){ toast("UPI ID copied"); }, fallback);
+  } else fallback();
+}
+
+function upiSupportCard(){
+  var h = '<div class="card"><h2>Support Cadence</h2>';
+  h += '<p class="hint" style="margin:0 0 12px">Cadence is free and always will be. If it has helped your practice and you feel like it, you can send anything you like. Completely optional.</p>';
+
+  h += '<div class="upiamts">';
+  h += '<button class="upichip' + (upiAmt == null ? ' on' : '') + '" onclick="upiSetAmt(null)">Any amount</button>';
+  for (var i = 0; i < UPI_PRESETS.length; i++){
+    var p = UPI_PRESETS[i];
+    h += '<button class="upichip' + (upiAmt === p ? ' on' : '') + '" onclick="upiSetAmt(' + p + ')">\u20b9' + p + '</button>';
+  }
+  h += '</div>';
+
+  if (UPI_ANDROID){
+    h += '<a class="btn wide grad" href="' + upiURI("", upiAmt) + '">Pay with any UPI app</a>';
+  } else if (UPI_IOS){
+    h += '<div class="upiapps">'
+      +  '<a class="btn" href="' + upiURI("gpay://upi/pay?", upiAmt) + '">Google Pay</a>'
+      +  '<a class="btn" href="' + upiURI("phonepe://pay?", upiAmt) + '">PhonePe</a>'
+      +  '<a class="btn" href="' + upiURI("paytmmp://pay?", upiAmt) + '">Paytm</a>'
+      +  '<a class="btn" href="' + upiURI("bhim://pay?", upiAmt) + '">BHIM</a>'
+      +  '</div>';
+  }
+
+  h += '<div class="upiqrwrap"><canvas id="upiQR"></canvas></div>';
+  h += '<p class="hint" style="text-align:center; margin:8px 0 0">'
+    +  (UPI_MOBILE ? 'Or scan this from another phone.' : 'Scan with any UPI app on your phone.')
+    +  '<br><b>' + esc(UPI_CFG.id) + '</b></p>';
+  h += '<button class="btn wide" style="margin-top:10px" onclick="upiCopyId()">Copy UPI ID</button>';
+  h += '<label for="upiOwn">Or set your own amount</label>';
+  h += '<input id="upiOwn" type="number" inputmode="decimal" min="1" step="1" placeholder="Amount in rupees"'
+    +  ' value="' + (upiAmt == null ? '' : upiAmt) + '" onchange="upiCustom(this)">';
+  h += '</div>';
+  return h;
+}
+
 function renderMore(){
   var el = document.getElementById("view-more");
   var html = '<p class="greet disp" style="font-size:22px">History and settings</p>';
@@ -2192,13 +2251,6 @@ function renderMore(){
     + '</div>'
     + '<p class="hint">Pick how the app looks. <b>System</b> follows your phone or computer\u2019s own light or dark setting.</p></div>';
 
-  var tn = state.settings.coachTone;
-  html += '<div class="card"><h2>Missed day reminders</h2><div class="coachq">'
-    + '<button type="button" class="' + (tn === 0 ? "on" : "") + '" onclick="setCoachTone(0)">Gentle</button>'
-    + '<button type="button" class="' + (tn === 1 ? "on" : "") + '" onclick="setCoachTone(1)">Direct</button>'
-    + '<button type="button" class="' + (tn === 2 ? "on" : "") + '" onclick="setCoachTone(2)">Tough</button>'
-    + '</div><p class="hint">Miss a day and the Today tab shows a card asking you back. This sets how firmly it speaks. After ten days away it always turns into a friendly welcome, whichever setting you pick.</p></div>';
-
   html += '<div class="card"><h2>Backup and share</h2>' 
     + '<button class="btn wide" onclick="exportJSON()"><i class="bic bdl"></i>Download backup file</button>'
     + '<button class="btn wide" style="margin-top:8px" onclick="document.getElementById(\'impFile\').click()"><i class="bic brs"></i>Restore from backup</button>'
@@ -2206,6 +2258,7 @@ function renderMore(){
     + '<button class="btn wide" style="margin-top:8px" onclick="copySummary()"><i class="bic bcp"></i>Copy summary for my teacher</button>'
     + '<p class="hint">Your data lives only on this device. Download a backup now and then, and use it to move to a new phone. The summary is formatted for WhatsApp, so the bold parts appear bold when you paste it there.</p></div>';
 
+  html += upiSupportCard();
   html += '<div class="card"><h2>Profile</h2>'
     + '<button class="btn wide" onclick="openProfile()">Edit name and instrument</button>'
     + '<button class="btn wide danger" style="margin-top:8px" onclick="resetAll()">Erase all data</button></div>';
@@ -2255,6 +2308,7 @@ function renderMore(){
   el.innerHTML = html;
   if (window.matchMedia && window.matchMedia('(min-width:760px)').matches) splitMasonryDom(el);
   attachSwipes(el);
+  upiDrawQR();
 }
 function toggleHist(){
   histOpen = !histOpen;
@@ -2817,12 +2871,6 @@ function setGoal(v){
   var n = parseInt(v, 10);
   if (!isNaN(n) && n >= 10){ state.settings.weeklyGoal = n; save(); toast("Weekly goal: " + n + "m"); }
 }
-function setCoachTone(t){
-  state.settings.coachTone = t;
-  state.settings.cbHideOn = null;
-  save(); render();
-  toast(t === 0 ? "Gentle reminders" : t === 2 ? "Tough reminders" : "Direct reminders");
-}
 
 /* ---- Category editor ---- */
 function findCat(id){
@@ -3200,7 +3248,6 @@ function importJSON(input){
       s.extras = s.extras.filter(function (e) { return e.date === todayKey(); });
       if (!s.songs) s.songs = [];
       migrateSongs(s);
-      normaliseSettings(s);
       state = s;
       if (state.settings && state.settings.theme) applyTheme(state.settings.theme);
       save(); render();
